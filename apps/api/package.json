@@ -7,6 +7,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@reviewlens/shared": "workspace:*"
+    "@reviewlens/shared": "workspace:*",
+    "google-play-scraper": "^10.1.3"
   }
 }
