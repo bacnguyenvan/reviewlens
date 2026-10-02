@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(pnpm:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(curl -s -X POST http://localhost:3000/api/reviews/google-play -H 'Content-Type: application/json' -d '{}')",
+      "Bash(curl -s -X POST http://localhost:3000/api/reviews/google-play -H 'Content-Type: application/json' -d '{\"packageName\": \"com.spotify.music\"}')",
+      "Bash(python3 -c ':*)",
+      "Bash(curl -s -X POST http://localhost:3000/api/reviews/google-play -H 'Content-Type: application/json' -d '{\"packageName\": \"https://play.google.com/store/apps/details?id=com.spotify.music\"}')",
+      "Bash(curl -s -X POST http://localhost:3000/api/reviews/google-play -H 'Content-Type: application/json' -d '{\"packageName\": \"com.this.app.does.not.exist.at.all\"}')",
+      "Bash(curl -sv -X POST http://localhost:3000/api/reviews/google-play -H 'Content-Type: application/json' -d '{\"packageName\": \"com.this.app.does.not.exist.at.all\"}')",
+      "Bash(kill %1)"
     ]
   }
 }

@@ -1,16 +1,10 @@
-export type Sentiment = 'positive' | 'negative' | 'neutral';
+import type { Sentiment, Review } from "@reviewlens/shared";
+
+// Re-export shared types so existing component imports keep working
+export type { Sentiment, Review } from "@reviewlens/shared";
+
 export type InsightCategory = 'Performance' | 'UX' | 'Feature Request' | 'Bug' | 'Positive';
 export type InsightSeverity = 'High' | 'Medium' | 'Low';
-
-export interface Review {
-  id: string;
-  rating: number;
-  content: string;
-  date: string;
-  appVersion: string;
-  sentiment: Sentiment;
-  author: string;
-}
 
 export interface Insight {
   id: string;

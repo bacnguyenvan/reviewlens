@@ -1,4 +1,5 @@
 import { BarChart2, Star, TrendingUp, AlertTriangle, ArrowRight } from 'lucide-react';
+import type { Review } from '@reviewlens/shared';
 import { MetricCard } from '../components/ui/MetricCard.tsx';
 import { ReviewTrendChart } from '../components/charts/ReviewTrendChart.tsx';
 import { InsightCard } from '../components/insights/InsightCard.tsx';
@@ -9,9 +10,10 @@ import type { Page } from '../components/layout/Sidebar.tsx';
 
 interface OverviewProps {
   onNavigate: (page: Page) => void;
+  onFetchSuccess: (packageName: string, reviews: Review[]) => void;
 }
 
-export function Overview({ onNavigate }: OverviewProps) {
+export function Overview({ onNavigate, onFetchSuccess }: OverviewProps) {
   const recentReviews = mockReviews.slice(0, 4);
   const topInsights = mockInsights.slice(0, 3);
 
@@ -33,7 +35,7 @@ export function Overview({ onNavigate }: OverviewProps) {
       </div>
 
       {/* App Input */}
-      <AppInputForm />
+      <AppInputForm onSuccess={onFetchSuccess} />
 
       {/* Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

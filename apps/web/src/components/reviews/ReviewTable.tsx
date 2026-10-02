@@ -1,12 +1,13 @@
 import { useState, useMemo } from 'react';
 import { Search, Filter } from 'lucide-react';
+import type { Review, Sentiment } from '@reviewlens/shared';
 import { mockReviews } from '../../data/mockData.ts';
-import type { Sentiment } from '../../data/mockData.ts';
 import { ReviewItem } from './ReviewItem.tsx';
 import { EmptyState } from '../ui/EmptyState.tsx';
 import { LoadingSkeleton } from '../ui/LoadingSkeleton.tsx';
 
 interface ReviewTableProps {
+  reviews?: Review[];
   loading?: boolean;
 }
 
@@ -14,7 +15,9 @@ type SortOrder = 'newest' | 'oldest';
 type RatingFilter = 'all' | '1' | '2' | '3' | '4' | '5';
 type SentimentFilter = 'all' | Sentiment;
 
-export function ReviewTable({ loading = false }: ReviewTableProps) {
+export function ReviewTable({ reviews, loading = false }: ReviewTableProps) {
+  const source = reviews ?? mockReviews;
+
   const [search, setSearch] = useState('');
   const [ratingFilter, setRatingFilter] = useState<RatingFilter>('all');
   const [sentimentFilter, setSentimentFilter] = useState<SentimentFilter>('all');
@@ -23,7 +26,7 @@ export function ReviewTable({ loading = false }: ReviewTableProps) {
   const PER_PAGE = 6;
 
   const filtered = useMemo(() => {
-    let items = [...mockReviews];
+    let items = [...source];
     if (search) {
       const q = search.toLowerCase();
       items = items.filter((r) => r.content.toLowerCase().includes(q) || r.author.toLowerCase().includes(q));
@@ -40,7 +43,7 @@ export function ReviewTable({ loading = false }: ReviewTableProps) {
       return sortOrder === 'newest' ? db - da : da - db;
     });
     return items;
-  }, [search, ratingFilter, sentimentFilter, sortOrder]);
+  }, [source, search, ratingFilter, sentimentFilter, sortOrder]);
 
   const totalPages = Math.ceil(filtered.length / PER_PAGE);
   const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
@@ -95,7 +98,7 @@ export function ReviewTable({ loading = false }: ReviewTableProps) {
       </div>
 
       {/* Count */}
-      <p className="text-xs text-slate-500">{filtered.length} reviews found</p>
+      <p className="text-xs text-slate-500">{filtered.length} review{filtered.length !== 1 ? 's' : ''} found</p>
 
       {/* List */}
       {paginated.length === 0 ? (
