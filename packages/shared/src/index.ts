@@ -25,9 +25,33 @@ export type ApiErrorCode =
   | "APP_NOT_FOUND"
   | "NO_REVIEWS"
   | "FETCH_ERROR"
-  | "TIMEOUT";
+  | "TIMEOUT"
+  | "AI_NOT_CONFIGURED"
+  | "AI_ERROR"
+  | "AI_TIMEOUT"
+  | "INVALID_INPUT";
 
 export interface ApiErrorResponse {
   error: string;
   code: ApiErrorCode;
+}
+
+// ── AI Analysis types ────────────────────────────────────────────────────────
+
+export type ReviewInsightCategory = "complaint" | "feature_request" | "positive";
+
+export type ReviewInsightSeverity = "high" | "medium" | "low";
+
+export interface ReviewInsight {
+  title: string;
+  category: ReviewInsightCategory;
+  severity: ReviewInsightSeverity;
+  mentions: number;
+  summary: string;
+  examples: string[];
+  suggestedAction: string;
+}
+
+export interface AnalyzeReviewsResponse {
+  insights: ReviewInsight[];
 }

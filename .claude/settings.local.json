@@ -9,7 +9,14 @@
       "Bash(curl -s -X POST http://localhost:3000/api/reviews/google-play -H 'Content-Type: application/json' -d '{\"packageName\": \"https://play.google.com/store/apps/details?id=com.spotify.music\"}')",
       "Bash(curl -s -X POST http://localhost:3000/api/reviews/google-play -H 'Content-Type: application/json' -d '{\"packageName\": \"com.this.app.does.not.exist.at.all\"}')",
       "Bash(curl -sv -X POST http://localhost:3000/api/reviews/google-play -H 'Content-Type: application/json' -d '{\"packageName\": \"com.this.app.does.not.exist.at.all\"}')",
-      "Bash(kill %1)"
+      "Bash(kill %1)",
+      "Bash(curl -s -X POST http://localhost:3000/api/reviews/analyze -H 'Content-Type: application/json' -d '{\"reviews\":[]}')",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d.get\\('code','?'\\), d.get\\('message', d.get\\('error','?'\\)\\)[:60]\\)\")",
+      "Bash(curl -s -X POST http://localhost:3000/api/reviews/analyze -H 'Content-Type: application/json' -d '{\"reviews\":[{\"rating\":3}]}')",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d.get\\('code','?'\\), d.get\\('message',d.get\\('error','?'\\)\\)[:80]\\)\")",
+      "Bash(curl -s -o /dev/null -w '%{http_code}' -X POST http://localhost:3000/api/reviews/analyze -H 'Content-Type: application/json' -d '{\"reviews\":[{\"rating\":2,\"content\":\"The app crashes constantly.\"}]}')",
+      "Bash(curl -s -X POST http://localhost:3000/api/reviews/analyze -H 'Content-Type: application/json' -d '{\"reviews\":[{\"rating\":1,\"content\":\"App crashes all the time\"}]}')",
+      "Bash(pkill -f \"tsx watch\")"
     ]
   }
 }

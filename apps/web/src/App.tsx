@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Review } from '@reviewlens/shared';
+import type { Review, ReviewInsight } from '@reviewlens/shared';
 import { AppLayout } from './components/layout/AppLayout.tsx';
 import { Overview } from './pages/Overview.tsx';
 import { AppReviews } from './pages/AppReviews.tsx';
@@ -12,13 +12,26 @@ export interface FetchedData {
   reviews: Review[];
 }
 
+export interface AnalyzedData {
+  packageName: string;
+  insights: ReviewInsight[];
+}
+
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('overview');
   const [fetched, setFetched] = useState<FetchedData | null>(null);
+  const [analyzed, setAnalyzed] = useState<AnalyzedData | null>(null);
 
   const handleFetchSuccess = (packageName: string, reviews: Review[]) => {
     setFetched({ packageName, reviews });
+    // Clear previous analysis when new reviews are fetched
+    setAnalyzed(null);
     setCurrentPage('reviews');
+  };
+
+  const handleAnalyzeSuccess = (packageName: string, insights: ReviewInsight[]) => {
+    setAnalyzed({ packageName, insights });
+    setCurrentPage('insights');
   };
 
   const renderPage = () => {
@@ -26,9 +39,22 @@ function App() {
       case 'overview':
         return <Overview onNavigate={setCurrentPage} onFetchSuccess={handleFetchSuccess} />;
       case 'reviews':
-        return <AppReviews fetched={fetched} onFetchSuccess={handleFetchSuccess} />;
+        return (
+          <AppReviews
+            fetched={fetched}
+            analyzed={analyzed}
+            onFetchSuccess={handleFetchSuccess}
+            onAnalyzeSuccess={handleAnalyzeSuccess}
+          />
+        );
       case 'insights':
-        return <AIInsights />;
+        return (
+          <AIInsights
+            analyzed={analyzed}
+            fetched={fetched}
+            onNavigate={setCurrentPage}
+          />
+        );
       case 'settings':
         return <Settings />;
     }

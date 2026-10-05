@@ -8,6 +8,8 @@
   },
   "dependencies": {
     "@reviewlens/shared": "workspace:*",
-    "google-play-scraper": "^10.1.3"
+    "dotenv": "^18.0.5",
+    "google-play-scraper": "^10.1.3",
+    "openai": "^7.28.0"
   }
 }
