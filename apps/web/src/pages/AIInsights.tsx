@@ -65,7 +65,7 @@ export function AIInsights({ analyzed, fetched, onNavigate }: AIInsightsProps) {
     return (
       <div className="space-y-6">
         <div>
-          <h2 className="text-xl font-semibold text-slate-900">AI Insights</h2>
+          <h2 className="text-xl font-semibold text-slate-900">Insights</h2>
           <p className="text-sm text-slate-500 mt-0.5">
             Analysis of <span className="font-medium text-slate-700">{analyzed.packageName}</span>
           </p>
@@ -76,7 +76,7 @@ export function AIInsights({ analyzed, fetched, onNavigate }: AIInsightsProps) {
           <div className="flex items-start gap-3">
             <Sparkles className="w-5 h-5 mt-0.5 shrink-0" />
             <div>
-              <p className="font-semibold text-sm">AI analysis complete</p>
+              <p className="font-semibold text-sm">Analysis complete</p>
               <p className="text-xs text-indigo-200 mt-0.5">
                 {fetched ? `${fetched.reviews.length.toLocaleString()} reviews analyzed` : 'Reviews analyzed'} ·{' '}
                 {sorted.length} insight{sorted.length !== 1 ? 's' : ''} found
@@ -117,18 +117,28 @@ export function AIInsights({ analyzed, fetched, onNavigate }: AIInsightsProps) {
           <span className="text-xs text-slate-400 ml-auto">{filtered.length} insights</span>
         </div>
 
+        {/* No themes at all */}
+        {sorted.length === 0 && (
+          <div className="text-center py-14 text-slate-500">
+            <p className="text-sm font-medium">No recurring themes found in these reviews.</p>
+            <p className="text-xs text-slate-400 mt-1">
+              The reviews may be too diverse or too few to form meaningful clusters.
+            </p>
+          </div>
+        )}
+
         {/* Insight cards */}
-        {filtered.length === 0 ? (
+        {sorted.length > 0 && filtered.length === 0 ? (
           <div className="text-center py-12 text-slate-400 text-sm">
             No insights in this category.
           </div>
-        ) : (
+        ) : sorted.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filtered.map((insight, i) => (
               <ReviewInsightCard key={i} insight={insight} />
             ))}
           </div>
-        )}
+        ) : null}
       </div>
     );
   }
@@ -144,7 +154,7 @@ export function AIInsights({ analyzed, fetched, onNavigate }: AIInsightsProps) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-semibold text-slate-900">AI Insights</h2>
+        <h2 className="text-xl font-semibold text-slate-900">Insights</h2>
         <p className="text-sm text-slate-500 mt-0.5">Discover patterns hidden in your app reviews.</p>
       </div>
 
@@ -153,11 +163,11 @@ export function AIInsights({ analyzed, fetched, onNavigate }: AIInsightsProps) {
         <div className="flex items-start gap-3 mb-4">
           <Sparkles className="w-5 h-5 mt-0.5 shrink-0" />
           <div>
-            <p className="font-semibold text-sm">Run AI analysis on your reviews</p>
+            <p className="font-semibold text-sm">Analyze your reviews</p>
             <p className="text-xs text-indigo-200 mt-0.5">
               {fetched
                 ? `${fetched.reviews.length.toLocaleString()} reviews ready to analyze for ${fetched.packageName}`
-                : 'Fetch reviews from Google Play first, then analyze with AI.'}
+                : 'Fetch reviews from Google Play first, then run the analysis.'}
             </p>
           </div>
         </div>
@@ -168,7 +178,7 @@ export function AIInsights({ analyzed, fetched, onNavigate }: AIInsightsProps) {
           {fetched ? (
             <>
               <Sparkles className="w-4 h-4" />
-              Analyze with AI
+              Analyze reviews
               <ArrowRight className="w-3.5 h-3.5" />
             </>
           ) : (

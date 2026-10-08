@@ -90,6 +90,20 @@ export function ReviewInsightCard({ insight, compact = false }: ReviewInsightCar
           {insight.summary}
         </p>
 
+        {/* Keywords */}
+        {insight.keywords && insight.keywords.length > 0 && (
+          <div className="flex flex-wrap gap-1 pl-5 mb-3">
+            {insight.keywords.map((kw) => (
+              <span
+                key={kw}
+                className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-medium bg-slate-100 text-slate-600"
+              >
+                {kw}
+              </span>
+            ))}
+          </div>
+        )}
+
         {/* First example quote */}
         {insight.examples.length > 0 && (
           <blockquote className="text-xs text-slate-500 italic border-l-2 border-slate-200 pl-3 ml-5 leading-relaxed">

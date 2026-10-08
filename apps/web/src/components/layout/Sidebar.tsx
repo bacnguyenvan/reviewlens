@@ -23,7 +23,7 @@ const navItems: Array<{
 }> = [
   { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "reviews", label: "App Reviews", icon: MessageSquare },
-  { id: "insights", label: "AI Insights", icon: Sparkles },
+  { id: "insights", label: "Insights", icon: Sparkles },
   { id: "settings", label: "Settings", icon: Settings },
 ];
 

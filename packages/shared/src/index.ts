@@ -49,6 +49,7 @@ export interface ReviewInsight {
   mentions: number;
   summary: string;
   examples: string[];
+  keywords: string[];
   suggestedAction: string;
 }
 

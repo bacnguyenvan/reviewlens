@@ -70,7 +70,7 @@ export function AppReviews({
         </div>
       </div>
 
-      {/* Analyze with AI — shown when real reviews are available */}
+      {/* Analyze reviews — shown when real reviews are available */}
       {isReal && !isAnalyzing && (
         <div className="bg-white rounded-xl border border-slate-200 p-4">
           <div className="flex items-center justify-between gap-4">
@@ -79,7 +79,7 @@ export function AppReviews({
                 <Sparkles className="w-4 h-4 text-indigo-600" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-slate-900">Analyze with AI</p>
+                <p className="text-sm font-semibold text-slate-900">Analyze reviews</p>
                 <p className="text-xs text-slate-500 mt-0.5">
                   {alreadyAnalyzed
                     ? `Already analyzed — ${analyzed.insights.length} insights found.`
@@ -104,7 +104,7 @@ export function AppReviews({
               ) : (
                 <>
                   <Sparkles className="w-4 h-4" />
-                  Analyze with AI
+                  Analyze reviews
                 </>
               )}
             </button>

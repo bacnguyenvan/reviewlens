@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { Sparkles } from 'lucide-react';
 
 const STEPS = [
-  'Reading reviews',
-  'Finding recurring themes',
-  'Identifying complaints and bugs',
-  'Detecting feature requests',
+  'Preprocessing review text',
+  'Building TF-IDF vectors',
+  'Finding common topics',
+  'Grouping similar reviews',
+  'Detecting recurring issues',
   'Generating recommendations',
 ];
 
@@ -29,7 +30,7 @@ export function AnalysisLoader() {
         </div>
         <div>
           <p className="text-sm font-semibold text-slate-900">Analyzing your reviews…</p>
-          <p className="text-xs text-slate-500 mt-0.5">This may take 10–30 seconds</p>
+          <p className="text-xs text-slate-500 mt-0.5">Running local analysis — no API key needed</p>
         </div>
       </div>
 
